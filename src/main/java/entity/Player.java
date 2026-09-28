@@ -35,7 +35,7 @@ public class Player extends  Entity{
         worldX = gp.tileSize * 24;
         worldY = gp.tileSize * 24;
         speed = 4;
-        eva = "detransform";
+        alien = "detransform";
         direction = "standDown";
     }
 
@@ -73,8 +73,43 @@ public class Player extends  Entity{
     public void update(){
 
 
+        if (keyH.gTyped == false) {
+            alien = "detransform";
+
+            if(keyH.upPressed == false && keyH.downPressed == false &&
+                    keyH.leftPressed == false && keyH.rightPressed == false){
+                if (direction == "down"){
+                    direction = "standDown";
+                    spriteCounter = 0;
+                    spriteNum = 1;
+
+                }
+                if (direction == "up"){
+                    direction = "standUp";
+                    spriteCounter = 0;
+                    spriteNum = 1;
+
+
+                }
+                if (direction == "right"){
+                    direction = "standRight";
+                    spriteCounter = 0;
+                    spriteNum = 1;
+
+                }
+                if (direction == "left"){
+                    direction = "standLeft";
+                    spriteCounter = 0;
+                    spriteNum = 1;
+
+
+                }
+
+            }
+        }
+
         if (keyH.gTyped == true) {
-            eva = "transform";
+            alien = "transform";
 
             if (keyH.upPressed == true || keyH.downPressed == true ||
                     keyH.leftPressed == true || keyH.rightPressed == true) {
@@ -111,27 +146,12 @@ public class Player extends  Entity{
                     spriteCounter = 0;
                 }
         }
-            if(keyH.upPressed == false && keyH.downPressed == false &&
-                    keyH.leftPressed == false && keyH.rightPressed == false){
-                if (direction == "down"){
-                    direction = "standDown";
-                }
-                if (direction == "up"){
-                    direction = "standUp";
-                }
-                if (direction == "right"){
-                    direction = "standRight";
-                }
-                if (direction == "left"){
-                    direction = "standLeft";
-                }
 
-            }
 
         }
 
                 if (keyH.gTyped == false) {
-                    eva = "detransform";
+                    alien = "detransform";
                     if (keyH.upPressed == true || keyH.downPressed == true ||
                             keyH.leftPressed == true || keyH.rightPressed == true) {
                         if (keyH.downPressed == true && keyH.upPressed == false) {
@@ -178,7 +198,7 @@ public class Player extends  Entity{
 
         BufferedImage image = null;
 
-        switch (eva) {
+        switch (alien) {
             case "transform":
                 switch (direction){
                     case "standDown":
@@ -255,9 +275,15 @@ public class Player extends  Entity{
                     case "down":
                         if (keyH.upPressed == false) {
                             if (spriteNum == 1) {
-                                image = down1;
+                                image = standDown;
                             }
                             if (spriteNum == 2) {
+                                image = down1;
+                            }
+                            if (spriteNum == 3) {
+                                image = standDown;
+                            }
+                            if (spriteNum == 4) {
                                 image = down2;
                             }
                         } else {
