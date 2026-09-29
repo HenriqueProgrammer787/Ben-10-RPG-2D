@@ -154,24 +154,49 @@ public class Player extends  Entity{
                     alien = "detransform";
                     if (keyH.upPressed == true || keyH.downPressed == true ||
                             keyH.leftPressed == true || keyH.rightPressed == true) {
-                        if (keyH.downPressed == true && keyH.upPressed == false) {
+
+                        if (keyH.downPressed == true) {
                             direction = "down";
-                            worldY += speed;
+
                         }
-                        if (keyH.upPressed == true && keyH.downPressed == false) {
+                        if (keyH.upPressed == true) {
                             direction = "up";
-                            worldY -= speed;
                         }
-                        if (keyH.leftPressed == true && keyH.rightPressed == false) {
+                        if (keyH.leftPressed == true ) {
                             direction = "left";
-                            worldX -= speed;
                         }
-                        if (keyH.rightPressed == true && keyH.leftPressed == false) {
+                        if (keyH.rightPressed == true ) {
                             direction = "right";
-                            worldX += speed;
                         }
                         collisionOn = false;
                         gp.cChecker.checkTile(this);
+
+                        // IF  COLLISION IS FALSE , PLAYER CAN MOVE
+                        if(collisionOn == false) {
+
+                            switch (direction) {
+                                case "up":
+                                    if(keyH.downPressed == false) {
+                                        worldY -= speed;
+                                    }
+                                    break;
+                                case "down":
+                                    if(keyH.upPressed == false) {
+                                        worldY += speed;
+                                    }
+                                    break;
+                                case "right":
+                                    if(keyH.leftPressed == false) {
+                                        worldX += speed;
+                                    }
+                                    break;
+                                case "left":
+                                    if (keyH.rightPressed == false) {
+                                        worldX -= speed;
+                                    }
+                                    break;
+                            }
+                        }
 
                         spriteCounter++;
                         if (spriteCounter > 11) {
@@ -218,7 +243,6 @@ public class Player extends  Entity{
                         g2.drawImage(image, screenX-30, screenY-60, gp.tileSize*2, gp.tileSize*2, null);
                         break;
                     case "right":
-                        if (keyH.leftPressed == false) {
                             if (spriteNum == 1) {
                                 image = diamondheadStandRight;
                             }
@@ -231,13 +255,9 @@ public class Player extends  Entity{
                             if (spriteNum == 4){
                                 image = diamondheadRight2;
                             }
-                        } else {
-                            image = diamondheadStandRight;
-                        }
                         g2.drawImage(image, screenX-30, screenY-60, gp.tileSize*2, gp.tileSize*2, null);
                         break;
                     case "left":
-                        if (keyH.rightPressed == false) {
                             if (spriteNum == 1) {
                                 image = diamondheadStandLeft;
                             }
@@ -250,9 +270,6 @@ public class Player extends  Entity{
                             if (spriteNum == 4) {
                                 image = diamondheadLeft2;
                             }
-                        } else {
-                            image = diamondheadStandLeft;
-                        }
                         g2.drawImage(image, screenX-30, screenY-60, gp.tileSize*2, gp.tileSize*2, null);
                         break;
                 }
@@ -291,7 +308,7 @@ public class Player extends  Entity{
                         }
                         break;
                     case "left":
-                        if(keyH.rightPressed == false) {
+                        if (keyH.rightPressed == false) {
                             if (spriteNum == 1) {
                                 image = standLeft;
                             }
@@ -304,7 +321,6 @@ public class Player extends  Entity{
                             if (spriteNum == 4) {
                                 image = left2;
                             }
-
                         } else {
                             image = standLeft;
                         }
